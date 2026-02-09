@@ -1,0 +1,16 @@
+{
+  "name": "Kenya Quick Prices",
+  "short_name": "KenyaQP",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0d3b1e",
+  "theme_color": "#0d3b1e",
+  "description": "Know the real price before you pay. Fast reference for everyday costs in Kenya.",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
