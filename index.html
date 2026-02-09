@@ -42,24 +42,24 @@
   </div>
 </header>
 
-<!-- STICKY SEARCH -->
-<div class="search-section" id="searchSection">
-  <div class="search-wrap">
-    <i class="fas fa-search"></i>
-    <input type="text" id="searchInput" placeholder="Search items... e.g. chapati, matatu, rent">
-    <button class="search-clear" id="searchClear" aria-label="Clear search">
-      <i class="fas fa-times"></i>
-    </button>
-  </div>
+
+<!-- INTRO SECTION -->
+<div class="container" style="text-align:center; max-width:700px; padding-bottom:0;">
+    <p style="font-size:1.1rem; color:var(--text-secondary); margin-bottom:2rem;">
+        Welcome to Kenya's most reliable everyday price checker. Select a category below to see current market rates for 2025.
+    </p>
 </div>
 
-<!-- FILTER TAGS -->
-<div class="filter-bar" id="filterBar">
-  <button class="filter-tag active" data-cat="all">All</button>
+<!-- CATEGORY GRID WRAPPER -->
+<div class="filter-bar" style="display:none;" id="hiddenFilterBar"></div> <!-- Hidden to prevent js errors if any -->
+<div class="result-count" id="resultCount" style="display:none;"></div>
+
+<div class="container">
+    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:16px;" id="homeCategoriesContainer">
+        <!-- Categories injected via JS -->
+    </div>
 </div>
 
-<!-- RESULT COUNT -->
-<div class="result-count" id="resultCount"></div>
 
 <!-- MAIN CONTENT -->
 <main class="container" id="priceContainer">

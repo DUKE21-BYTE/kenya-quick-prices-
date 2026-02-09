@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Prices - Kenya Quick Prices</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;600;700;800&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <meta name="theme-color" content="#0d3b1e">
+    <style>
+        /* Page specific overrides */
+        .category-page-header {
+            background: var(--hero-gradient);
+            padding: 2rem 1.25rem;
+            color: #fff;
+            text-align: center;
+            position: relative;
+        }
+        .back-nav {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .back-nav:hover {
+            color: #fff;
+        }
+        .cat-hero-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+        #catTitle {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="category-page-header">
+        <a href="index.html" class="back-nav">
+            <i class="fas fa-arrow-left"></i> Home
+        </a>
+        <div class="cat-hero-icon" id="catIcon"></div>
+        <h1 id="catTitle">Loading...</h1>
+        <p id="catDesc" style="opacity: 0.9;">Current market prices in Kenya</p>
+    </header>
+
+    <!-- SEARCH (Simplified for single category) -->
+    <div class="search-section" id="searchSection">
+        <div class="search-wrap">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search in this category...">
+            <button class="search-clear" id="searchClear">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <main class="container" id="categoryContainer" style="margin-top: 2rem;">
+        <!-- Items will be injected here -->
+    </main>
+    
+    <div class="result-count" id="resultCount"></div>
+
+    <!-- SHARE -->
+    <div class="share-bar">
+        <p>Share these prices <i class="fas fa-share-alt"></i></p>
+        <div class="share-buttons">
+            <button class="share-btn whatsapp" id="shareWA"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+            <button class="share-btn twitter" id="shareTW"><i class="fab fa-twitter"></i> Post</button>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Kenya Quick Prices
+    </footer>
+
+    <button class="scroll-top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script type="module" src="./main.js"></script>
+</body>
+</html>

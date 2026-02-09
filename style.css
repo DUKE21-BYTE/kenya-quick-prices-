@@ -800,3 +800,114 @@ footer strong {
 .result-count.show {
   display: block;
 }
+
+/* ========== VIEW MORE BUTTON ========== */
+.view-more-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  background: var(--card-bg);
+  color: var(--green-mid);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  font-family: "Karla", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.view-more-btn:hover {
+  background: var(--green-pale);
+  border-color: var(--green-mid);
+  transform: translateY(-1px);
+}
+
+.dark .view-more-btn {
+  background: var(--card-bg);
+  color: var(--tag-text);
+  border-color: var(--card-border);
+}
+
+.dark .view-more-btn:hover {
+  background: var(--card-border);
+  color: #fff;
+}
+
+
+/* ========== HOME CATEGORY GRID ========== */
+.home-cat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1.5rem 1rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow);
+  height: 100%;
+  animation: slideUp 0.6s ease-out both;
+}
+
+.home-cat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--green-mid);
+}
+
+.home-cat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--green-pale);
+  color: var(--green-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  transition: transform 0.3s;
+}
+
+.home-cat-card:hover .home-cat-icon {
+  transform: scale(1.1);
+  background: var(--green-mid);
+  color: #fff;
+}
+
+.home-cat-info h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.home-cat-info p {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  margin-bottom: 1rem;
+}
+
+.view-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--green-mid);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dark .home-cat-icon {
+  background: var(--card-border);
+  color: var(--green-mid);
+}
+
+.dark .home-cat-card:hover .home-cat-icon {
+  background: var(--green-mid);
+  color: #fff;
+}

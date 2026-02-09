@@ -380,161 +380,162 @@ if(healthIndex >= 0) {
 }
 
 
-// ==================== RENDER ====================
-const container = document.getElementById("priceContainer");
-const filterBar = document.getElementById("filterBar");
+// ==================== RENDER LOGIC ====================
+// Check which page we are on
+const homeContainer = document.getElementById("homeCategoriesContainer");
+const categoryContainer = document.getElementById("categoryContainer");
+
 const searchInput = document.getElementById("searchInput");
 const searchClear = document.getElementById("searchClear");
 const resultCount = document.getElementById("resultCount");
 const noResults = document.createElement("div");
 noResults.className = "no-results";
-noResults.innerHTML =
-  '<i class="fas fa-search"></i><h3>No items found</h3><p>Try a different search term</p>';
+noResults.innerHTML = '<i class="fas fa-search"></i><h3>No items found</h3><p>Try a different search term</p>';
 
-let totalItemCount = 0;
-
-// Build filter tags + sections
-priceData.forEach((cat, index) => {
-  // Filter tag
-  const tag = document.createElement("button");
-  tag.className = "filter-tag";
-  tag.dataset.cat = cat.category;
-  tag.textContent = cat.catLabel;
-  filterBar.appendChild(tag);
-
-  // Section
-  const section = document.createElement("section");
-  section.className = `category-section cat-${cat.category}`;
-  section.dataset.cat = cat.category;
-  section.style.animationDelay = `${0.1 * index}s`;
-
-  let headerHTML = `
-    <div class="category-header">
-      <div class="category-icon"><i class="fas ${cat.catIcon}"></i></div>
-      <div>
-        <h2 class="category-title">${cat.catLabel}</h2>
-        <div class="category-subtitle">${cat.catNote}</div>
-      </div>
-    </div>`;
-
-  let gridHTML = '<div class="price-grid">';
-  cat.items.forEach((item) => {
-    totalItemCount++;
+// --- HOME PAGE RENDER ---
+if (homeContainer) {
+    let totalItems = 0;
     
-    // Determine Link
-    let itemUrl = item.link;
-    let linkIcon = '<i class="fas fa-external-link-alt"></i>';
-    let linkTitle = "Visit Website";
+    // Calculate total items
+    priceData.forEach(cat => totalItems += cat.items.length);
     
-    // If no specific link, generate a Google Search link
-    if (!itemUrl) {
-        itemUrl = `https://www.google.com/search?q=${encodeURIComponent(item.name + " price Kenya")}`;
-        linkIcon = '<i class="fab fa-google"></i>';
-        linkTitle = "Search on Google";
-    }
+    // Update Stats if elements exist
+    const totalItemsEl = document.getElementById("totalItems");
+    const totalCategoriesEl = document.getElementById("totalCategories");
+    if(totalItemsEl) totalItemsEl.textContent = totalItems;
+    if(totalCategoriesEl) totalCategoriesEl.textContent = priceData.length;
 
-    gridHTML += `
-      <div class="price-card" data-search="${(item.name + " " + item.note + " " + cat.catLabel).toLowerCase()}">
-        <div class="item-info">
-          <div class="item-name">
-            ${item.name}
-            <a href="${itemUrl}" target="_blank" rel="noopener noreferrer" class="item-link" title="${linkTitle}" aria-label="${linkTitle}">
-               ${linkIcon}
-            </a>
-          </div>
-          ${item.note ? `<div class="item-note">${item.note}</div>` : ""}
-        </div>
-        <div class="price-tag">${item.price}</div>
-      </div>`;
-  });
-  gridHTML += "</div>";
-
-  section.innerHTML = headerHTML + gridHTML;
-  container.appendChild(section);
-});
-
-container.appendChild(noResults);
-
-// Stats
-document.getElementById("totalItems").textContent = totalItemCount;
-document.getElementById("totalCategories").textContent = priceData.length;
-
-// ==================== FILTER LOGIC ====================
-let activeCategory = "all";
-
-filterBar.addEventListener("click", (e) => {
-  const tag = e.target.closest(".filter-tag");
-  if (!tag) return;
-
-  filterBar
-    .querySelectorAll(".filter-tag")
-    .forEach((t) => t.classList.remove("active"));
-  tag.classList.add("active");
-  activeCategory = tag.dataset.cat;
-  applyFilters();
-});
-
-// ==================== SEARCH LOGIC ====================
-searchInput.addEventListener("input", () => {
-  searchClear.classList.toggle("show", searchInput.value.length > 0);
-  applyFilters();
-});
-
-searchClear.addEventListener("click", () => {
-  searchInput.value = "";
-  searchClear.classList.remove("show");
-  applyFilters();
-  searchInput.focus();
-});
-
-function applyFilters() {
-  const query = searchInput.value.toLowerCase().trim();
-  const sections = container.querySelectorAll(".category-section");
-  let visibleCount = 0;
-
-  sections.forEach((section) => {
-    const sectionCat = section.dataset.cat;
-    const catMatch = activeCategory === "all" || sectionCat === activeCategory;
-
-    if (!catMatch) {
-      section.style.display = "none";
-      return;
-    }
-
-    const cards = section.querySelectorAll(".price-card");
-    let sectionVisible = 0;
-
-    cards.forEach((card) => {
-      const text = card.dataset.search;
-      const match = !query || text.includes(query);
-      card.style.display = match ? "" : "none";
-      if (match) {
-        sectionVisible++;
-        visibleCount++;
-      }
+    // Render Category Grid
+    let gridHTML = "";
+    priceData.forEach((cat, index) => {
+        gridHTML += `
+        <a href="category.html?cat=${cat.category}" class="home-cat-card" style="animation-delay: ${index * 0.05}s">
+            <div class="home-cat-icon">
+                <i class="fas ${cat.catIcon}"></i>
+            </div>
+            <div class="home-cat-info">
+                <h3>${cat.catLabel}</h3>
+                <p>${cat.items.length} items</p>
+                <span class="view-link">View Prices <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </a>
+        `;
     });
-
-    section.style.display = sectionVisible > 0 ? "" : "none";
-  });
-
-  const showCount = query.length > 0;
-  resultCount.classList.toggle("show", showCount);
-  if (showCount) {
-    resultCount.textContent = `${visibleCount} item${visibleCount !== 1 ? "s" : ""} found`;
-  }
-
-  noResults.classList.toggle("show", visibleCount === 0);
+    homeContainer.innerHTML = gridHTML;
 }
 
-// ==================== STICKY SHADOW ====================
+// --- CATEGORY PAGE RENDER ---
+if (categoryContainer) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const catId = urlParams.get('cat');
+    const categoryData = priceData.find(c => c.category === catId);
+
+    if (categoryData) {
+        // Update Header
+        document.title = `${categoryData.catLabel} Prices - Kenya Quick Prices`;
+        const catIconEl = document.getElementById("catIcon");
+        const catTitleEl = document.getElementById("catTitle");
+        const catDescEl = document.getElementById("catDesc");
+        
+        if(catIconEl) catIconEl.innerHTML = `<i class="fas ${categoryData.catIcon}"></i>`;
+        if(catTitleEl) catTitleEl.textContent = categoryData.catLabel;
+        if(catDescEl) catDescEl.textContent = categoryData.catNote;
+
+        // Render Items
+        renderItems(categoryData.items, categoryData.catLabel, categoryContainer);
+        
+        // Setup Search specifically for this category
+        if(searchInput) {
+            searchInput.addEventListener("input", () => {
+                const query = searchInput.value.toLowerCase().trim();
+                searchClear.classList.toggle("show", query.length > 0);
+                filterItems(query, categoryContainer);
+            });
+            
+            searchClear.addEventListener("click", () => {
+                searchInput.value = "";
+                searchClear.classList.remove("show");
+                filterItems("", categoryContainer);
+                searchInput.focus();
+            });
+        }
+    } else {
+        // Category not found
+        categoryContainer.innerHTML = `<div class="no-results" style="display:block">
+            <i class="fas fa-exclamation-circle"></i>
+            <h3>Category not found</h3>
+            <a href="index.html" class="view-more-btn" style="display:inline-block; width:auto; margin-top:1rem">Go Home</a>
+        </div>`;
+    }
+}
+
+function renderItems(items, catLabel, container) {
+    let html = '<div class="price-grid">';
+    
+    items.forEach((item) => {
+        // Determine Link
+        let itemUrl = item.link;
+        let linkIcon = '<i class="fas fa-external-link-alt"></i>';
+        let linkTitle = "Visit Website";
+        
+        if (!itemUrl) {
+            itemUrl = `https://www.google.com/search?q=${encodeURIComponent(item.name + " price Kenya")}`;
+            linkIcon = '<i class="fab fa-google"></i>';
+            linkTitle = "Search on Google";
+        }
+
+        html += `
+          <div class="price-card" data-search="${(item.name + " " + item.note + " " + catLabel).toLowerCase()}">
+            <div class="item-info">
+              <div class="item-name">
+                ${item.name}
+                <a href="${itemUrl}" target="_blank" rel="noopener noreferrer" class="item-link" title="${linkTitle}" aria-label="${linkTitle}">
+                   ${linkIcon}
+                </a>
+              </div>
+              ${item.note ? `<div class="item-note">${item.note}</div>` : ""}
+            </div>
+            <div class="price-tag">${item.price}</div>
+          </div>`;
+    });
+    
+    html += '</div>';
+    container.innerHTML = html;
+    container.appendChild(noResults);
+}
+
+function filterItems(query, container) {
+    const cards = container.querySelectorAll(".price-card");
+    let visibleCount = 0;
+    
+    cards.forEach(card => {
+        const text = card.dataset.search;
+        const match = !query || text.includes(query);
+        card.style.display = match ? "flex" : "none";
+        if(match) visibleCount++;
+    });
+    
+    noResults.classList.toggle("show", visibleCount === 0);
+    
+    if(resultCount) {
+        resultCount.classList.toggle("show", query.length > 0);
+        if(query.length > 0) {
+            resultCount.textContent = `${visibleCount} item${visibleCount !== 1 ? "s" : ""} found`;
+        }
+    }
+}
+
+// ==================== STICKY SHADOW (Shared) ====================
 const searchSection = document.getElementById("searchSection");
-window.addEventListener(
-  "scroll",
-  () => {
-    searchSection.classList.toggle("scrolled", window.scrollY > 200);
-  },
-  { passive: true },
-);
+if (searchSection) {
+    window.addEventListener(
+      "scroll",
+      () => {
+        searchSection.classList.toggle("scrolled", window.scrollY > 200);
+      },
+      { passive: true },
+    );
+}
 
 // ==================== SCROLL TO TOP ====================
 const scrollTopBtn = document.getElementById("scrollTop");
