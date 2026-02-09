@@ -107,6 +107,87 @@
   <i class="fas fa-chevron-up"></i>
 </button>
 
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(registration => {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, err => {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+    });
+  }
+</script>
+
+<!-- JSON-LD Structured Data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Kenya Quick Prices",
+  "url": "https://kenya-quick-prices.netlify.app/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://kenya-quick-prices.netlify.app/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Common Everyday Prices in Kenya",
+  "description": "A list of average prices for transport, food, housing, and goods in Kenya.",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Transport Fares",
+      "description": "Matatu, Boda boda, SGR, Uber prices"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Food & Drinks",
+      "description": "Chapati, Tea, Meals, Grocery prices"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Housing Rent",
+      "description": "Bedsitter, One Bedroom rental prices in Nairobi"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Electronics",
+      "description": "Samsung phones, chargers, earbuds prices"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "name": "Construction Materials",
+      "description": "Cement, Sand, Mabati prices"
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "name": "Baby Products",
+      "description": "Diapers, Formula prices"
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "name": "Farming Inputs",
+      "description": "Fertilizer, Seeds, Feeds prices"
+    }
+  ]
+}
+</script>
+
 <script type="module" src="./main.js"></script>
 </body>
 </html>
