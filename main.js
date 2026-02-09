@@ -457,7 +457,7 @@ scrollTopBtn.addEventListener("click", () => {
 // ==================== SHARE ====================
 const siteURL = "https://poe.com";
 const shareText =
-  "🇰🇪 Kenya Quick Prices — Know the real price before you pay! Check everyday costs so you don't get overcharged.";
+  "Kenya Quick Prices — Know the real price before you pay! Check everyday costs so you don't get overcharged.";
 
 document.getElementById("shareWA").addEventListener("click", () => {
   window.open(
