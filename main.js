@@ -298,7 +298,87 @@ const priceData = [
       },
     ],
   },
+  // ELECTRONICS
+  {
+    category: "electronics",
+    catLabel: "Electronics",
+    catIcon: "fa-mobile-screen",
+    catNote: "Phones, chargers & gadgets",
+    items: [
+      { name: "Samsung A-Series (Entry)", price: "Ksh 11k–18k", note: "e.g. A06, A07" },
+      { name: "Samsung A-Series (Mid)", price: "Ksh 26k–47k", note: "e.g. A17, A36, A57" },
+      { name: "Samsung Charger (Original)", price: "Ksh 2,000–3,300", note: "25W - 50W", link: "https://www.samsung.com/ke/" },
+      { name: "General Charger", price: "Ksh 600–1,500", note: "Oraimo etc.", link: "https://ke.oraimo.com/" },
+      { name: "Earbuds (Budget)", price: "Ksh 1,500–3,000", note: "Oraimo, Anker", link: "https://ke.oraimo.com/" },
+      { name: "Earbuds (Premium)", price: "Ksh 11k–20k", note: "Samsung, Apple" },
+      { name: "Screen Protector", price: "Ksh 200–500", note: "Glass / Ceramic" },
+      { name: "Phone Cover", price: "Ksh 300–800", note: "Silicone / Rugged" },
+    ]
+  },
+  // CONSTRUCTION
+  {
+    category: "construction",
+    catLabel: "Construction",
+    catIcon: "fa-trowel-bricks",
+    catNote: "Materials prices 2025",
+    items: [
+      { name: "Cement (50kg)", price: "Ksh 650–750", note: "Simba, Blue Triangle", link: "https://www.simbacement.com/" },
+      { name: "River Sand (Lorry 18t)", price: "Ksh 32k–38k", note: "Nairobi area" },
+      { name: "Maize Seeds (2kg)", price: "Ksh 420", note: "Govt controlled price", link: "https://www.kenyaseed.com/" }, // Moved to Farming correctly in full file, but placing here for context if section matches
+    ]
+  },
+  // BABY PRODUCTS
+  {
+    category: "baby",
+    catLabel: "Baby Products",
+    catIcon: "fa-baby-carriage",
+    catNote: "Diapers & functional needs",
+    items: [
+      { name: "Diapers (Pack ~40pcs)", price: "Ksh 900–1,300", note: "Softcare, Molfix", link: "https://www.jumia.co.ke/diapers/" },
+      { name: "Pampers / Huggies", price: "Ksh 1,600–2,000", note: "Premium brands", link: "https://www.carrefour.ke/" },
+      { name: "Baby Wipes", price: "Ksh 200–400", note: "Packet" },
+      { name: "Formula (NAN/Lactogen)", price: "Ksh 1,600–2,150", note: "400g Tin", link: "https://goodlife.co.ke/" },
+    ]
+  },
+  // FARMING - Re-adding correct section content
+  {
+    category: "farming",
+    catLabel: "Farming Inputs",
+    catIcon: "fa-wheat-awn",
+    catNote: "Seeds, fertilizer & inputs",
+    items: [
+      { name: "Fertilizer (DAP 50kg)", price: "Ksh 2,500–3,500", note: "Subsidized vs Retail", link: "https://kilimo.go.ke/" },
+      { name: "Maize Seeds (2kg)", price: "Ksh 420", note: "Kenya Seed Co.", link: "https://www.kenyaseed.com/" },
+      { name: "Dairy Meal (70kg)", price: "Ksh 2,800–3,500", note: "Unga Farm Care", link: "https://ungagroup.com/" },
+    ]
+  }
 ];
+
+// Re-map specifically for existing categories that need links
+const transportIndex = priceData.findIndex(c => c.category === 'transport');
+if(transportIndex >= 0) {
+    const tItems = priceData[transportIndex].items;
+    tItems.find(i => i.name.includes("SGR")).link = "https://metickets.krc.co.ke/";
+    tItems.find(i => i.name.includes("Uber")).link = "https://www.uber.com/ke/en/";
+    tItems.find(i => i.name.includes("Fuel")).link = "https://epra.go.ke/";
+}
+
+const utilIndex = priceData.findIndex(c => c.category === 'utilities');
+if(utilIndex >= 0) {
+    const uItems = priceData[utilIndex].items;
+    uItems.find(i => i.name.includes("Electricity")).link = "https://kplc.co.ke/"; // KPLC
+    uItems.find(i => i.name.includes("Water")).link = "https://www.nairobiwater.co.ke/"; // Nairobi Water
+    uItems.find(i => i.name.includes("Showmax")).link = "https://www.showmax.com/";
+    uItems.find(i => i.name.includes("DSTV")).link = "https://www.dstv.com/en-ke";
+    uItems.find(i => i.name.includes("Safaricom")).link = "https://www.safaricom.co.ke/";
+}
+
+const healthIndex = priceData.findIndex(c => c.category === 'health');
+if(healthIndex >= 0) {
+    const hItems = priceData[healthIndex].items;
+    hItems.find(i => i.name.includes("NHIF")).link = "https://sha.go.ke/"; // SHA/NHIF
+}
+
 
 // ==================== RENDER ====================
 const container = document.getElementById("priceContainer");
@@ -340,10 +420,28 @@ priceData.forEach((cat, index) => {
   let gridHTML = '<div class="price-grid">';
   cat.items.forEach((item) => {
     totalItemCount++;
+    
+    // Determine Link
+    let itemUrl = item.link;
+    let linkIcon = '<i class="fas fa-external-link-alt"></i>';
+    let linkTitle = "Visit Website";
+    
+    // If no specific link, generate a Google Search link
+    if (!itemUrl) {
+        itemUrl = `https://www.google.com/search?q=${encodeURIComponent(item.name + " price Kenya")}`;
+        linkIcon = '<i class="fab fa-google"></i>';
+        linkTitle = "Search on Google";
+    }
+
     gridHTML += `
       <div class="price-card" data-search="${(item.name + " " + item.note + " " + cat.catLabel).toLowerCase()}">
         <div class="item-info">
-          <div class="item-name">${item.name}</div>
+          <div class="item-name">
+            ${item.name}
+            <a href="${itemUrl}" target="_blank" class="item-link" title="${linkTitle}" aria-label="${linkTitle}">
+               ${linkIcon}
+            </a>
+          </div>
           ${item.note ? `<div class="item-note">${item.note}</div>` : ""}
         </div>
         <div class="price-tag">${item.price}</div>

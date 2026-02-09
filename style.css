@@ -105,22 +105,40 @@ h4 {
   content: "";
   position: absolute;
   inset: 0;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 24px,
-      rgba(255, 255, 255, var(--pattern-opacity)) 24px,
-      rgba(255, 255, 255, var(--pattern-opacity)) 25px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 24px,
-      rgba(255, 255, 255, var(--pattern-opacity)) 24px,
-      rgba(255, 255, 255, var(--pattern-opacity)) 25px
-    );
+  background-image: radial-gradient(#ffffff 1px, transparent 1px), radial-gradient(#ffffff 1px, transparent 1px);
+  background-position: 0 0, 25px 25px;
+  background-size: 50px 50px;
+  opacity: 0.1;
   pointer-events: none;
+}
+
+.item-link {
+  color: var(--green-mid);
+  text-decoration: none;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--green-pale);
+  transition: all 0.2s;
+}
+
+.item-link:hover {
+  background: var(--green-mid);
+  color: #fff;
+}
+
+.dark .item-link {
+  background: var(--card-border);
+  color: var(--text);
+}
+
+.dark .item-link:hover {
+  background: var(--green-mid);
+  color: #fff;
 }
 
 .hero-flag {
@@ -619,6 +637,44 @@ h4 {
 .copied-toast.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+.coffee-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.coffee-btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: #FFDD00;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  box-shadow: 0px 1px 2px rgba(190, 190, 190, 0.5);
+  color: #000000;
+  font-family: 'Cookie', cursive, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: 0.3s all linear;
+}
+
+.coffee-btn:hover, .coffee-btn:active, .coffee-btn:focus {
+  text-decoration: none;
+  box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5);
+  opacity: 0.85;
+  color: #000000;
+  transform: translateY(-1px);
+}
+
+.coffee-btn img {
+  height: 24px;
+  width: 24px;
+  margin-right: 8px;
 }
 
 /* ========== FOOTER ========== */
