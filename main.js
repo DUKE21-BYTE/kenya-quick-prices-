@@ -412,7 +412,7 @@ priceData.forEach((cat, index) => {
     <div class="category-header">
       <div class="category-icon"><i class="fas ${cat.catIcon}"></i></div>
       <div>
-        <div class="category-title">${cat.catLabel}</div>
+        <h2 class="category-title">${cat.catLabel}</h2>
         <div class="category-subtitle">${cat.catNote}</div>
       </div>
     </div>`;
@@ -438,7 +438,7 @@ priceData.forEach((cat, index) => {
         <div class="item-info">
           <div class="item-name">
             ${item.name}
-            <a href="${itemUrl}" target="_blank" class="item-link" title="${linkTitle}" aria-label="${linkTitle}">
+            <a href="${itemUrl}" target="_blank" rel="noopener noreferrer" class="item-link" title="${linkTitle}" aria-label="${linkTitle}">
                ${linkIcon}
             </a>
           </div>
