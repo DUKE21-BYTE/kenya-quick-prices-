@@ -1,5 +1,3 @@
-import "./style.css";
-
 // ==================== PRICE DATA ====================
 const priceData = [
   // TRANSPORT
