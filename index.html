@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kenya Quick Prices – Don't Get Overcharged</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-flag">
+    <span class="flag-black"></span>
+    <span class="flag-red"></span>
+    <span class="flag-green"></span>
+  </div>
+  <h1><span class="kqp">Kenya</span> Quick Prices</h1>
+  <p>Know the real price before you pay. Fast reference for everyday costs in Kenya.</p>
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <div class="num" id="totalItems">0</div>
+      <div class="label">Items</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num" id="totalCategories">0</div>
+      <div class="label">Categories</div>
+    </div>
+  </div>
+  <div class="updated-badge">
+    <span class="dot"></span>
+    Prices updated Feb 2025
+  </div>
+</header>
+
+<!-- STICKY SEARCH -->
+<div class="search-section" id="searchSection">
+  <div class="search-wrap">
+    <i class="fas fa-search"></i>
+    <input type="text" id="searchInput" placeholder="Search items... e.g. chapati, matatu, rent">
+    <button class="search-clear" id="searchClear" aria-label="Clear search">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+</div>
+
+<!-- FILTER TAGS -->
+<div class="filter-bar" id="filterBar">
+  <button class="filter-tag active" data-cat="all">All</button>
+</div>
+
+<!-- RESULT COUNT -->
+<div class="result-count" id="resultCount"></div>
+
+<!-- MAIN CONTENT -->
+<main class="container" id="priceContainer">
+  <!-- Disclaimer -->
+  <div class="disclaimer-banner">
+    <i class="fas fa-exclamation-triangle"></i>
+    <p><strong>Heads up:</strong> These are average reference prices across major Kenyan towns. Actual prices vary by location, season, and demand. Always negotiate wisely!</p>
+  </div>
+</main>
+
+<!-- SHARE -->
+<div class="share-bar">
+  <p>Help others avoid getting overcharged — share this page 🤝</p>
+  <div class="share-buttons">
+    <button class="share-btn whatsapp" id="shareWA">
+      <i class="fab fa-whatsapp"></i> WhatsApp
+    </button>
+    <button class="share-btn twitter" id="shareTW">
+      <i class="fab fa-twitter"></i> Post
+    </button>
+    <button class="share-btn copy-link" id="copyLink">
+      <i class="fas fa-link"></i> Copy Link
+    </button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="copied-toast" id="toast">Link copied!</div>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Kenya Quick Prices</strong> — built for the people 🇰🇪<br>
+  Average reference prices • Location &amp; demand may vary<br>
+  &copy; 2025 KQP &middot; Made with ❤️ in Nairobi
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<script type="module" src="/main.js"></script>
+</body>
+</html>
