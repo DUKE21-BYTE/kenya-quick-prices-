@@ -559,6 +559,7 @@ document.getElementById("shareWA").addEventListener("click", () => {
   window.open(
     `https://wa.me/?text=${encodeURIComponent(shareText + " " + siteURL)}`,
     "_blank",
+    "noopener,noreferrer"
   );
 });
 
@@ -566,6 +567,7 @@ document.getElementById("shareTW").addEventListener("click", () => {
   window.open(
     `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(siteURL)}`,
     "_blank",
+    "noopener,noreferrer"
   );
 });
 
